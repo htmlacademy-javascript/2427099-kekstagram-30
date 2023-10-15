@@ -56,8 +56,7 @@ const MESSAGES = [
 const createIdGenerator = () => {
   let generatorId = 0;
   return function() {
-    generatorId += 1;
-    return generatorId;
+    return ++generatorId;
   };
 };
 
