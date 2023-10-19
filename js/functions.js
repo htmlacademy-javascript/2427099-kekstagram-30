@@ -46,3 +46,23 @@ getIntegerFromString('а я томат');
 getIntegerFromString(2023);
 getIntegerFromString(-1);
 getIntegerFromString(1.5);
+
+function isWorkingHours (startTime, endTime, eventTime, duration) {
+  const [startHour, startMinute] = startTime.split(':').map(Number);
+  const [endHour, endMinute] = endTime.split(':').map(Number);
+  const [eventHour, eventMinute] = eventTime.split(':').map(Number);
+
+  const totalStartMinutes = startHour * 60 + startMinute;
+  const totalEndMinutes = endHour * 60 + endMinute;
+  const totalEventMinutes = eventHour * 60 + eventMinute;
+
+  const eventEndMinutes = totalEventMinutes + duration;
+
+  return (totalStartMinutes <= eventEndMinutes && totalEndMinutes >= eventEndMinutes);
+}
+
+isWorkingHours('08:00', '17:30', '14:00', 90);
+isWorkingHours('8:0', '10:0', '8:0', 120);
+isWorkingHours('08:00', '14:30', '14:00', 90);
+isWorkingHours('14:00', '17:30', '08:0', 90);
+isWorkingHours('8:00', '17:30', '08:00', 900);
