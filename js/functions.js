@@ -47,14 +47,16 @@ getIntegerFromString(2023);
 getIntegerFromString(-1);
 getIntegerFromString(1.5);
 
+const MINUTES_IN_HOUR = 60;
+
 function isWorkingHours (startTime, endTime, eventTime, duration) {
   const [startHour, startMinute] = startTime.split(':').map(Number);
   const [endHour, endMinute] = endTime.split(':').map(Number);
   const [eventHour, eventMinute] = eventTime.split(':').map(Number);
 
-  const totalStartMinutes = startHour * 60 + startMinute;
-  const totalEndMinutes = endHour * 60 + endMinute;
-  const totalEventMinutes = eventHour * 60 + eventMinute;
+  const totalStartMinutes = startHour * MINUTES_IN_HOUR + startMinute;
+  const totalEndMinutes = endHour * MINUTES_IN_HOUR + endMinute;
+  const totalEventMinutes = eventHour * MINUTES_IN_HOUR + eventMinute;
 
   const eventEndMinutes = totalEventMinutes + duration;
 
