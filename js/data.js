@@ -1,6 +1,12 @@
 import { createIdGenerator, getRandomInteger, getRandomArrayElement } from './utils';
 
-const PHOTO_DESCRIPTIONS = [
+const AVATAR_COUNT = 6;
+const COMMENTS_COUNT = 30;
+const PICTURE_COUNT = 25;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+
+const PICTURE_DESCRIPTIONS = [
   'Закат на океане.',
   'Городская суета на улицах.',
   'Природный парк с красивыми цветами.',
@@ -55,35 +61,29 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const generatePhotoId = createIdGenerator();
+const generatePictureId = createIdGenerator();
 const generateCommentId = createIdGenerator();
 
-const createComment = () => {
-  let message = '';
-  const numMessage = Math.random() < 0.5 ? 1 : 2;
-  for (let i = 0; i < numMessage; i++) {
-    message += `${getRandomArrayElement(MESSAGES) } `;
-  }
+const createMessage = () => Array.from({ length: getRandomInteger(1, 2) }, () => getRandomArrayElement(MESSAGES)).join(' ');
 
+const createComment = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  message: createMessage(),
+  name: getRandomArrayElement(NAMES)
+});
+
+const createPicture = () => {
+  const pictureId = generatePictureId();
   return {
-    id: generateCommentId(),
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: message.trim(),
-    name: getRandomArrayElement(NAMES)
+    id: pictureId,
+    url: `photos/${pictureId}.jpg`,
+    description: getRandomArrayElement(PICTURE_DESCRIPTIONS),
+    likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
+    comments: Array.from({ length: getRandomInteger(0, COMMENTS_COUNT) }, createComment)
   };
 };
 
-const createPhoto = () => {
-  const photoId = generatePhotoId();
-  return {
-    id: photoId,
-    url: `photos/${photoId}.jpg`,
-    description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
-    likes: getRandomInteger(15, 200),
-    comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
-  };
-};
+const getPictures = () => Array.from({ length: PICTURE_COUNT }, createPicture);
 
-const createPhotos = Array.from({length: 25}, createPhoto);
-
-export { createPhotos };
+export { getPictures };
