@@ -6,6 +6,4 @@ const pictures = getPictures();
 
 showPictures(pictures);
 
-const thumbnailsElement = document.querySelectorAll('.picture');
-
-showBigPicture(pictures, thumbnailsElement);
+showBigPicture(pictures);
