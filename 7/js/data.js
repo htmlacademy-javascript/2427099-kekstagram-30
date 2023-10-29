@@ -1,4 +1,4 @@
-import { createIdGenerator, getRandomInteger, getRandomArrayElement } from './utils';
+import { createIdGenerator, getRandomInteger, getRandomArrayElement } from './utils.js';
 
 const AVATAR_COUNT = 6;
 const COMMENTS_COUNT = 30;

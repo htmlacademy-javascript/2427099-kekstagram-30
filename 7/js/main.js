@@ -1,9 +1,9 @@
-import { getPictures } from './data';
-import { showPictures } from './thumbnail';
-import { showBigPicture } from './big-picture';
+import { getPictures } from './data.js';
+import { showPictures } from './thumbnail.js';
+import { initPictureListeners } from './big-picture.js';
 
 const pictures = getPictures();
 
 showPictures(pictures);
 
-showBigPicture(pictures);
+initPictureListeners(pictures);
