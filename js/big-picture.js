@@ -13,6 +13,8 @@ const commentsCountTotalElement = commentCountElement.querySelector('.social__co
 const commentsShownElement = commentCountElement.querySelector('.social__comment-shown-count');
 const commentsLoaderElement = document.querySelector('.comments-loader');
 
+const COMMENT_COUNTER = 5;
+
 const createCommentElement = (comment) => {
   const commentElement = document.createElement('li');
   commentElement.classList.add('social__comment');
@@ -39,7 +41,7 @@ const updateCommentsShownCount = (count) => {
 };
 
 const loadComments = (comments) => {
-  let commentCounter = comments.length >= 5 ? 5 : comments.length;
+  let commentCounter = comments.length >= COMMENT_COUNTER ? COMMENT_COUNTER : comments.length;
 
   const loadMoreComments = () => {
     socialCommentsElement.innerHTML = '';
@@ -58,8 +60,8 @@ const loadComments = (comments) => {
   };
 
   commentsLoaderElement.addEventListener('click', () => {
-    if (commentCounter + 5 <= comments.length) {
-      commentCounter += 5;
+    if (commentCounter + COMMENT_COUNTER <= comments.length) {
+      commentCounter += COMMENT_COUNTER;
       loadMoreComments();
     } else {
       commentCounter = comments.length;
