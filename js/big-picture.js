@@ -1,15 +1,16 @@
 import { isEscapeKey } from './utils.js';
 
+const bodyElement = document.querySelector('body');
 const picturesElement = document.querySelector('.pictures');
 const bigPictureElement = document.querySelector('.big-picture');
-const bodyElement = document.querySelector('body');
 const cancelPictureElement = document.querySelector('#picture-cancel');
 const pictureImgElement = document.querySelector('.big-picture__img img');
 const pictureLikesCountElement = document.querySelector('.likes-count');
 const pictureDescriptionElement = document.querySelector('.social__caption');
-const commentCountElement = document.querySelector('.social__comment-count');
-const commentsCountTotalElement = document.querySelector('.social__comment-total-count');
 const socialCommentsElement = document.querySelector('.social__comments');
+const commentCountElement = document.querySelector('.social__comment-count');
+const commentsCountTotalElement = commentCountElement.querySelector('.social__comment-total-count');
+const commentsShownElement = commentCountElement.querySelector('.social__comment-shown-count');
 const commentsLoaderElement = document.querySelector('.comments-loader');
 
 const createCommentElement = (comment) => {
@@ -33,15 +34,49 @@ const createCommentElement = (comment) => {
   socialCommentsElement.appendChild(commentElement);
 };
 
+const updateCommentsShownCount = (count) => {
+  commentsShownElement.textContent = count;
+};
+
+const loadComments = (comments) => {
+  let commentCounter = comments.length >= 5 ? 5 : comments.length;
+
+  const loadMoreComments = () => {
+    socialCommentsElement.innerHTML = '';
+    const pictureComments = comments.slice(0, commentCounter);
+    pictureComments.forEach((comment) => {
+      createCommentElement(comment);
+    });
+
+    updateCommentsShownCount(commentCounter);
+
+    if (comments.length <= commentCounter) {
+      commentsLoaderElement.classList.add('hidden');
+    } else {
+      commentsLoaderElement.classList.remove('hidden');
+    }
+  };
+
+  commentsLoaderElement.addEventListener('click', () => {
+    if (commentCounter + 5 <= comments.length) {
+      commentCounter += 5;
+      loadMoreComments();
+    } else {
+      commentCounter = comments.length;
+      loadMoreComments();
+    }
+  });
+
+  loadMoreComments();
+};
+
 const renderPictureInfo = (index, pictures) => {
   pictureImgElement.src = pictures[index].url;
   pictureLikesCountElement.textContent = pictures[index].likes;
   pictureDescriptionElement.textContent = pictures[index].description;
   commentsCountTotalElement.textContent = pictures[index].comments.length;
 
-  pictures[index].comments.forEach((comment) => {
-    createCommentElement(comment);
-  });
+  loadComments(pictures[index].comments);
 };
 
 const openBigPicture = (index, pictures) => {
@@ -49,8 +84,6 @@ const openBigPicture = (index, pictures) => {
   bigPictureElement.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
   bodyElement.classList.add('modal-open');
-  commentCountElement.classList.add('hidden');
-  commentsLoaderElement.classList.add('hidden');
   renderPictureInfo(index, pictures);
 };
 
