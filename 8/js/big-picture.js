@@ -41,18 +41,18 @@ const updateCommentsShownCount = (count) => {
 };
 
 const loadComments = (comments) => {
-  let commentCounter = comments.length >= COMMENT_COUNTER ? COMMENT_COUNTER : comments.length;
+  let maxComments = comments.length >= COMMENT_COUNTER ? COMMENT_COUNTER : comments.length;
 
   const loadMoreComments = () => {
     socialCommentsElement.innerHTML = '';
-    const pictureComments = comments.slice(0, commentCounter);
+    const pictureComments = comments.slice(0, maxComments);
     pictureComments.forEach((comment) => {
       createCommentElement(comment);
     });
 
-    updateCommentsShownCount(commentCounter);
+    updateCommentsShownCount(maxComments);
 
-    if (comments.length <= commentCounter) {
+    if (comments.length <= maxComments) {
       commentsLoaderElement.classList.add('hidden');
     } else {
       commentsLoaderElement.classList.remove('hidden');
@@ -60,11 +60,11 @@ const loadComments = (comments) => {
   };
 
   commentsLoaderElement.addEventListener('click', () => {
-    if (commentCounter + COMMENT_COUNTER <= comments.length) {
-      commentCounter += COMMENT_COUNTER;
+    if (maxComments + COMMENT_COUNTER <= comments.length) {
+      maxComments += COMMENT_COUNTER;
       loadMoreComments();
     } else {
-      commentCounter = comments.length;
+      maxComments = comments.length;
       loadMoreComments();
     }
   });
