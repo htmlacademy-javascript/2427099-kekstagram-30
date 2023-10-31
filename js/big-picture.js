@@ -86,6 +86,7 @@ const openBigPicture = (index, pictures) => {
   bigPictureElement.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
   bodyElement.classList.add('modal-open');
+
   renderPictureInfo(index, pictures);
 };
 
@@ -94,6 +95,7 @@ const onPictureClick = (evt, pictures) => {
     const linkElement = evt.target.closest('a.picture');
     const pictureElements = Array.from(document.querySelectorAll('.picture'));
     const index = pictureElements.indexOf(linkElement);
+
     openBigPicture(index, pictures);
   }
 };
