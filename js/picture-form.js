@@ -9,6 +9,10 @@ const pictureFormElement = document.querySelector('.img-upload__form');
 const hashtagInputElement = pictureFormElement.querySelector('.text__hashtags');
 const commentTextAreaElement = pictureFormElement.querySelector('.text__description');
 
+const REG_EXP = /^#[a-zа-яё0-9]{1,19}$/i;
+const HASHTAG_LENGTH_COUNT = 5;
+const COMMENT_LENGTH_COUNT = 140;
+
 const openPictureForm = () => {
   pictureOverlayElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
@@ -24,9 +28,9 @@ const pristine = new Pristine(pictureFormElement, {
 const isHashtagValid = (value) => {
   if (value !== '') {
     const hashtags = value.split(' ');
-    const regExp = /^#[a-zа-яё0-9]{1,19}$/i;
+
     for (const hashtag of hashtags) {
-      if (!regExp.test(hashtag)) {
+      if (!REG_EXP.test(hashtag)) {
         return false;
       }
     }
@@ -54,34 +58,36 @@ const isHashtagUnique = (value) => {
 
 const validateHashtagsLength = (value) => {
   const hashtags = value.split(' ');
-  return hashtags.length <= 5;
+  return hashtags.length <= HASHTAG_LENGTH_COUNT;
 };
 
-pristine.addValidator(
-  hashtagInputElement,
-  isHashtagValid,
-  'Введён невалидный хэш-тег'
-);
+const validateComment = (comment) => comment.length <= COMMENT_LENGTH_COUNT;
 
-pristine.addValidator(
-  hashtagInputElement,
-  isHashtagUnique,
-  'Хэш-теги повторяются'
-);
+const addValidators = () => {
+  pristine.addValidator(
+    hashtagInputElement,
+    isHashtagValid,
+    'Введён невалидный хэш-тег'
+  );
 
-pristine.addValidator(
-  hashtagInputElement,
-  validateHashtagsLength,
-  'Нельзя указать больше пяти хэш-тегов'
-);
+  pristine.addValidator(
+    hashtagInputElement,
+    isHashtagUnique,
+    'Хэш-теги повторяются'
+  );
 
-const validateComment = (comment) => comment.length <= 140;
+  pristine.addValidator(
+    hashtagInputElement,
+    validateHashtagsLength,
+    'Нельзя указать больше пяти хэш-тегов'
+  );
 
-pristine.addValidator(
-  commentTextAreaElement,
-  validateComment,
-  'Длина комментария не может составлять больше 140 символов'
-);
+  pristine.addValidator(
+    commentTextAreaElement,
+    validateComment,
+    'Длина комментария не может составлять больше 140 символов'
+  );
+};
 
 const closePictureForm = () => {
   pictureInputElement.value = '';
@@ -95,6 +101,7 @@ const closePictureForm = () => {
 const initPictureFormListener = () => {
   pictureInputElement.addEventListener('change', () => {
     openPictureForm();
+    addValidators();
   });
 
   uploadCancelElement.addEventListener('click', () => {
