@@ -106,8 +106,6 @@ const initPictureFormListener = () => {
   pictureInputElement.addEventListener('change', () => {
     openPictureForm();
     addValidators();
-    initScaleControlListener();
-    initEffectListener();
   });
 
   uploadCancelElement.addEventListener('click', () => {
@@ -140,5 +138,8 @@ function onDocumentKeydown (evt) {
     closePictureForm();
   }
 }
+
+initEffectListener();
+initScaleControlListener();
 
 export { initPictureFormListener };

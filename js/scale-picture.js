@@ -15,11 +15,13 @@ const scalePicture = (value) => {
 };
 
 const onSmallerButtonClick = () => {
-  scalePicture(Math.max(parseInt(scaleControlValueElement.value, 10) - SCALE_STEP_COUNT, SCALE_MIN));
+  const value = Math.max(parseInt(scaleControlValueElement.value, 10) - SCALE_STEP_COUNT, SCALE_MIN);
+  scalePicture(value);
 };
 
 const onBiggerButtonClick = () => {
-  scalePicture(Math.min(parseInt(scaleControlValueElement.value, 10) + SCALE_STEP_COUNT, SCALE_MAX));
+  const value = Math.min(parseInt(scaleControlValueElement.value, 10) + SCALE_STEP_COUNT, SCALE_MAX);
+  scalePicture(value);
 };
 
 const initScaleControlListener = () => {
