@@ -1,4 +1,4 @@
-import { isEscapeKey } from './utils';
+import { isEscapeKey } from './utils.js';
 
 const bodyElement = document.querySelector('body');
 const errorLoadPicturesElement = document.querySelector('#data-error').content.querySelector('.data-error');
