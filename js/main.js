@@ -1,12 +1,19 @@
-import { getPictures } from './data.js';
+import { loadPictures } from './api.js';
 import { showPictures } from './thumbnail.js';
 import { initPictureListeners } from './big-picture.js';
 import { initPictureFormListener } from './picture-form.js';
+import { showLoadErrorMessage } from './messages.js';
 
-const pictures = getPictures();
+const bootstrap = async () => {
+  try {
+    const pictures = await loadPictures();
+    showPictures(pictures);
+    initPictureListeners(pictures);
+    initPictureFormListener();
+  } catch {
+    showLoadErrorMessage();
+  }
 
-showPictures(pictures);
+};
 
-initPictureListeners(pictures);
-
-initPictureFormListener();
+bootstrap();
