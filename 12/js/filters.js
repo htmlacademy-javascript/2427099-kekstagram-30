@@ -45,18 +45,18 @@ const setFilter = (evt, filter, pictures) => {
   evt.target.classList.add('img-filters__button--active');
 };
 
-const debouncedRenderThumbnail = debounce(setFilter);
+const debouncedSetFilters = debounce(setFilter);
 
 const initFilters = (pictures) => {
   pictureFilterElement.classList.remove('img-filters--inactive');
   filterDefaultElement.addEventListener('click', (evt) => {
-    debouncedRenderThumbnail(evt, FilterType.DEFAULT, pictures);
+    debouncedSetFilters(evt, FilterType.DEFAULT, pictures);
   });
   filterRandomElement.addEventListener('click', (evt) => {
-    debouncedRenderThumbnail(evt, FilterType.RANDOM, pictures);
+    debouncedSetFilters(evt, FilterType.RANDOM, pictures);
   });
   filterDiscussedElement.addEventListener('click', (evt) => {
-    debouncedRenderThumbnail(evt, FilterType.DISCUSSED, pictures);
+    debouncedSetFilters(evt, FilterType.DISCUSSED, pictures);
   });
 };
 
