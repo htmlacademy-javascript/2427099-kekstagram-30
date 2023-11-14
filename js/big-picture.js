@@ -1,5 +1,9 @@
 import { isEscapeKey } from './utils.js';
 
+const COMMENT_COUNTER = 5;
+const AVATAR_IMG_WIDTH = 35;
+const AVATAR_IMG_HEIGHT = 35;
+
 const bodyElement = document.querySelector('body');
 const picturesElement = document.querySelector('.pictures');
 const bigPictureElement = document.querySelector('.big-picture');
@@ -12,10 +16,6 @@ const commentCountElement = document.querySelector('.social__comment-count');
 const commentsCountTotalElement = commentCountElement.querySelector('.social__comment-total-count');
 const commentsShownElement = commentCountElement.querySelector('.social__comment-shown-count');
 const commentsLoaderElement = document.querySelector('.comments-loader');
-
-const COMMENT_COUNTER = 5;
-const AVATAR_IMG_WIDTH = 35;
-const AVATAR_IMG_HEIGHT = 35;
 
 const createCommentElement = ({avatar, name, message}) => {
   const commentElement = document.createElement('li');
