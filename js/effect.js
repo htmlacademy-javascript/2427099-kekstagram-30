@@ -1,11 +1,3 @@
-const pictureFormElement = document.querySelector('.img-upload__form');
-const sliderContainerElement = pictureFormElement.querySelector('.img-upload__effect-level');
-const effectSliderElement = pictureFormElement.querySelector('.effect-level__slider');
-const effectsElement = pictureFormElement.querySelector('.effects');
-const effectValueElement = pictureFormElement.querySelector('.effect-level__value');
-const imagePreviewElement = pictureFormElement.querySelector('.img-upload__preview img');
-const originalEffectElement = pictureFormElement.querySelector('#effect-none');
-
 const EffectType = {
   ORIGINAL: 'none',
   CHROME: 'chrome',
@@ -70,6 +62,14 @@ const sliderOptions = {
     step: 0.1
   }
 };
+
+const pictureFormElement = document.querySelector('.img-upload__form');
+const sliderContainerElement = pictureFormElement.querySelector('.img-upload__effect-level');
+const effectSliderElement = pictureFormElement.querySelector('.effect-level__slider');
+const effectsElement = pictureFormElement.querySelector('.effects');
+const effectValueElement = pictureFormElement.querySelector('.effect-level__value');
+const imagePreviewElement = pictureFormElement.querySelector('.img-upload__preview img');
+const originalEffectElement = pictureFormElement.querySelector('#effect-none');
 
 let currentEffect = EffectType.ORIGINAL;
 
