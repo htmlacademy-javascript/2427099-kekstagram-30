@@ -1,5 +1,6 @@
 import { debounce } from './utils.js';
 import { showPictures } from './thumbnail.js';
+import { initPictureListeners } from './big-picture.js';
 
 const FilterType = {
   DEFAULT: 'default',
@@ -26,6 +27,7 @@ const setFilter = (evt, filter, pictures) => {
   const picturesElement = document.querySelectorAll('.picture');
   picturesElement.forEach((picture) => picture.remove());
   showPictures(filteredPictures);
+  initPictureListeners(filteredPictures);
   const currentFilterElement = document.querySelector('.img-filters__button--active');
   currentFilterElement.classList.remove('img-filters__button--active');
   evt.target.classList.add('img-filters__button--active');
