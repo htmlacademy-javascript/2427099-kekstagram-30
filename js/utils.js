@@ -1,7 +1,5 @@
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
 const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
 
@@ -11,4 +9,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export { isEscapeKey, getRandomInteger, debounce };
+export { isEscapeKey, debounce };
