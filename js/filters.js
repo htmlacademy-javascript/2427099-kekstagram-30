@@ -1,4 +1,4 @@
-import { getRandomInteger, debounce } from './utils.js';
+import { debounce } from './utils.js';
 import { showPictures } from './thumbnail.js';
 
 const FilterType = {
@@ -7,7 +7,8 @@ const FilterType = {
   DISCUSSED: 'discussed'
 };
 
-const MAX_RANDOM_PICTURES = 10;
+const RANDOM_FITLER_COUNT = 10;
+const RANDOM_OFFSET = 0.5;
 
 const filterDefaultElement = document.querySelector('#filter-default');
 const filterRandomElement = document.querySelector('#filter-random');
@@ -16,22 +17,7 @@ const pictureFilterElement = document.querySelector('.img-filters');
 
 const filters = {
   [FilterType.DEFAULT]: (pictures) => pictures,
-  [FilterType.RANDOM]: (pictures) => {
-    const randomPictureList = [];
-    const max = Math.min(MAX_RANDOM_PICTURES, pictures.length);
-
-    if (pictures.length === 0) {
-      return randomPictureList;
-    }
-
-    while (randomPictureList.length < max) {
-      const index = getRandomInteger(0, pictures.length - 1);
-      if (!randomPictureList.includes(index)) {
-        randomPictureList.push(index);
-      }
-    }
-    return randomPictureList.map((index) => pictures[index]);
-  },
+  [FilterType.RANDOM]: (pictures) => pictures.slice().sort(() => Math.random() - RANDOM_OFFSET).slice(0, RANDOM_FITLER_COUNT),
   [FilterType.DISCUSSED]: (pictures) => pictures.slice().sort((item1, item2) => item2.comments.length - item1.comments.length)
 };
 
