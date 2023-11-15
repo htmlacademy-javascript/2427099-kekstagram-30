@@ -4,6 +4,7 @@ import { resetEffect, initEffectListener } from './effect.js';
 import { sendPicture } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const REG_EXP = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_LENGTH_COUNT = 5;
 const COMMENT_LENGTH_COUNT = 140;
@@ -21,11 +22,18 @@ const uploadCancelElement = pictureFormElement.querySelector('#upload-cancel');
 const hashtagInputElement = pictureFormElement.querySelector('.text__hashtags');
 const commentTextAreaElement = pictureFormElement.querySelector('.text__description');
 const submitButtonElement = pictureFormElement.querySelector('.img-upload__submit');
+const picturePreviewElement = pictureFormElement.querySelector('.img-upload__preview img');
+const effectsPreviewElement = pictureFormElement.querySelectorAll('.effects__preview');
 const errorElement = document.querySelector('.error');
 
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
   submitButtonElement.textContent = isDisabled ? SubmitButtonCaption.SUBMITING : SubmitButtonCaption.IDLE;
+};
+
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
 };
 
 const openPictureForm = () => {
@@ -92,6 +100,15 @@ const closePictureForm = () => {
 };
 
 const onOpenPictureForm = () => {
+  const file = pictureInputElement.files[0];
+
+  if (file && isValidType(file)) {
+    picturePreviewElement.src = URL.createObjectURL(file);
+    effectsPreviewElement.forEach((effect) => {
+      effect.style.backgroundImage = `url('${picturePreviewElement.src}')`;
+    });
+  }
+
   openPictureForm();
   addValidators();
   initEffectListener();
