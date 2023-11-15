@@ -24,7 +24,6 @@ const commentTextAreaElement = pictureFormElement.querySelector('.text__descript
 const submitButtonElement = pictureFormElement.querySelector('.img-upload__submit');
 const picturePreviewElement = pictureFormElement.querySelector('.img-upload__preview img');
 const effectsPreviewElement = pictureFormElement.querySelectorAll('.effects__preview');
-const errorElement = document.querySelector('.error');
 
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
@@ -161,7 +160,7 @@ const initPictureFormListener = () => {
   pictureFormElement.addEventListener('submit', onSumbitPictureForm);
 };
 
-const isErrorMessageExist = () => Boolean(errorElement);
+const isErrorMessageExist = () => Boolean(document.querySelector('.error'));
 
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt) && !isErrorMessageExist()) {
