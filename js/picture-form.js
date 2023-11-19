@@ -10,7 +10,7 @@ const HASHTAG_LENGTH_COUNT = 5;
 const COMMENT_LENGTH_COUNT = 140;
 
 const SubmitButtonCaption = {
-  SUBMITING: 'Отправляю...',
+  SUBMITTING: 'Отправляю...',
   IDLE: 'Отправить'
 };
 
@@ -27,7 +27,7 @@ const effectsPreviewElement = pictureFormElement.querySelectorAll('.effects__pre
 
 const toggleSubmitButton = (isDisabled) => {
   submitButtonElement.disabled = isDisabled;
-  submitButtonElement.textContent = isDisabled ? SubmitButtonCaption.SUBMITING : SubmitButtonCaption.IDLE;
+  submitButtonElement.textContent = isDisabled ? SubmitButtonCaption.SUBMITTING : SubmitButtonCaption.IDLE;
 };
 
 const isValidType = (file) => {
@@ -98,7 +98,7 @@ const closePictureForm = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-const onOpenPictureForm = () => {
+const onFormOpen = () => {
   const file = pictureInputElement.files[0];
 
   if (file && isValidType(file)) {
@@ -114,7 +114,7 @@ const onOpenPictureForm = () => {
   initScaleControlListener();
 };
 
-const onClosePictureForm = () => {
+const onFormClose = () => {
   closePictureForm();
 };
 
@@ -135,15 +135,15 @@ const submitForm = async (pictureData) => {
   }
 };
 
-const onSumbitPictureForm = (evt) => {
+const onFormSubmit = (evt) => {
   evt.preventDefault();
   submitForm(evt.target);
 };
 
 const initPictureFormListener = () => {
-  pictureInputElement.addEventListener('change', onOpenPictureForm);
+  pictureInputElement.addEventListener('change', onFormOpen);
 
-  uploadCancelElement.addEventListener('click', onClosePictureForm);
+  uploadCancelElement.addEventListener('click', onFormClose);
 
   hashtagInputElement.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
@@ -157,7 +157,7 @@ const initPictureFormListener = () => {
     }
   });
 
-  pictureFormElement.addEventListener('submit', onSumbitPictureForm);
+  pictureFormElement.addEventListener('submit', onFormSubmit);
 };
 
 const isErrorMessageExist = () => Boolean(document.querySelector('.error'));

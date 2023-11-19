@@ -23,7 +23,7 @@ const hideMessage = () => {
   bodyElement.removeEventListener('click', onBodyClick);
 };
 
-const onCloseMessageButton = () => {
+const onMessageButtonClose = () => {
   hideMessage();
 };
 
@@ -31,7 +31,7 @@ const showMessage = (element, classButton) => {
   bodyElement.append(element);
   bodyElement.addEventListener('click', onBodyClick);
   document.addEventListener('keydown', onDocumentKeydown);
-  element.querySelector(classButton).addEventListener('click', onCloseMessageButton);
+  element.querySelector(classButton).addEventListener('click', onMessageButtonClose);
 };
 
 const showSuccessMessage = () => {
