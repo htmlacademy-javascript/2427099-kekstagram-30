@@ -109,7 +109,7 @@ const closeBigPictureModal = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-const onCloseBigPicture = () => {
+const onPictureClose = () => {
   closeBigPictureModal();
 };
 
@@ -118,7 +118,7 @@ const initPictureListeners = (pictures) => {
     onPictureClick(evt, pictures);
   });
 
-  cancelPictureElement.addEventListener('click', onCloseBigPicture);
+  cancelPictureElement.addEventListener('click', onPictureClose);
 };
 
 function onDocumentKeydown (evt) {
